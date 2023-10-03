@@ -25,6 +25,8 @@ namespace MvcMovie.Controllers
         //{
         //    return View(await _context.Movie.ToListAsync());
         //}
+       // tut7: Situation before 
+//Update the Index method found inside Controllers/MoviesController.cs with the following code:
         public async Task<IActionResult> Index()
         {
               return _context.Movie != null ? 
