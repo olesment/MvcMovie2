@@ -45,7 +45,25 @@ namespace MvcMovie.Controllers
         //    return View(await movies.ToListAsync());
         //}
         //tut 7: Update search to id
-        public async Task<IActionResult> Index(string id)
+        //public async Task<IActionResult> Index(string id)
+        //{
+        //    if (_context.Movie == null)
+        //    {
+        //        return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+        //    }
+
+        //    var movies = from m in _context.Movie
+        //                 select m;
+
+        //    if (!String.IsNullOrEmpty(id))
+        //    {
+        //        movies = movies.Where(s => s.Title!.Contains(id));
+        //    }
+
+        //    return View(await movies.ToListAsync());
+        //}
+        //tut7 change back to searchString
+        public async Task<IActionResult> Index(string searchString)
         {
             if (_context.Movie == null)
             {
@@ -55,9 +73,9 @@ namespace MvcMovie.Controllers
             var movies = from m in _context.Movie
                          select m;
 
-            if (!String.IsNullOrEmpty(id))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                movies = movies.Where(s => s.Title!.Contains(id));
+                movies = movies.Where(s => s.Title!.Contains(searchString));
             }
 
             return View(await movies.ToListAsync());
