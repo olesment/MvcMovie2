@@ -25,13 +25,24 @@ namespace MvcMovie.Controllers
         //{
         //    return View(await _context.Movie.ToListAsync());
         //}
-       // tut7: Situation before 
-//Update the Index method found inside Controllers/MoviesController.cs with the following code:
-        public async Task<IActionResult> Index()
+        // tut7: Situation before 
+        //Update the Index method found inside Controllers/MoviesController.cs with the following code:
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Movie != null ? 
-                          View(await _context.Movie.ToListAsync()) :
-                          Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+            if (_context.Movie == null)
+            {
+                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+            }
+
+            var movies = from m in _context.Movie
+                         select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(s => s.Title!.Contains(searchString));
+            }
+
+            return View(await movies.ToListAsync());
         }
 
         // GET: Movies/Details/5
