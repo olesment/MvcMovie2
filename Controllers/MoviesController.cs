@@ -27,7 +27,25 @@ namespace MvcMovie.Controllers
         //}
         // tut7: Situation before 
         //Update the Index method found inside Controllers/MoviesController.cs with the following code:
-        public async Task<IActionResult> Index(string searchString)
+        //public async Task<IActionResult> Index(string searchString)
+        //{
+        //    if (_context.Movie == null)
+        //    {
+        //        return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+        //    }
+
+        //    var movies = from m in _context.Movie
+        //                 select m;
+
+        //    if (!String.IsNullOrEmpty(searchString))
+        //    {
+        //        movies = movies.Where(s => s.Title!.Contains(searchString));
+        //    }
+
+        //    return View(await movies.ToListAsync());
+        //}
+        //tut 7: Update search to id
+        public async Task<IActionResult> Index(string id)
         {
             if (_context.Movie == null)
             {
@@ -37,14 +55,13 @@ namespace MvcMovie.Controllers
             var movies = from m in _context.Movie
                          select m;
 
-            if (!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(id))
             {
-                movies = movies.Where(s => s.Title!.Contains(searchString));
+                movies = movies.Where(s => s.Title!.Contains(id));
             }
 
             return View(await movies.ToListAsync());
         }
-
         // GET: Movies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
